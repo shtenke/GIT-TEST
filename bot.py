@@ -23,4 +23,27 @@ def ban_user(message):
     else:
         bot.reply_to(message, "Эта команда должна быть использована в ответ на сообщение пользователя, которого вы хотите забанить.")
 
+@bot.message_handler(commands=['coin'])
+def coin_handler(message):
+    coin = choice(["ОРЕЛ", "РЕШКА"])
+    bot.reply_to(message, coin)
+
+@bot.message_handler(func=lambda message: True)
+def echo_message(message):
+    if message.text == 'hello' or message.text == 'hi':
+        bot.reply_to(message, f'hello {message.from_user.username}')
+    else: 
+        bot.reply_to(message, message.text)
+
+@bot.message_handler(commands=['info','help'])
+def send_welcome(message):
+    bot.reply_to(message, """
+        Theres my commands:
+/start
+/kick
+/coin
+or you can send any message and see what i do
+                            """)
+
+
 bot.infinity_polling(none_stop=True)
